@@ -5,9 +5,13 @@ import { Text, Button } from "react-native";
 
 import { SafeArea } from "../../components/utility/safe-area.component";
 
-import { RestaurantsNavigator } from "./restaurants.navigator";
 import { MapScreen } from "../../features/map/screens/map.screen";
+import { RestaurantsNavigator } from "./restaurants.navigator";
+
 import { AuthenticationContext } from "../../services/authentication/authentication.context";
+import { RestaurantContextProvider } from "../../services/restaurants/restaurants.context";
+import { LocationContextProvider } from "../../services/location/location.context";
+import { FavouritesContextProvider } from "../../services/favourites/favourites.context";
 
 const Tab = createBottomTabNavigator();
 
@@ -40,9 +44,15 @@ const screenOptions = ({ route }) => {
 };
 
 export const AppNavigator = () => (
-  <Tab.Navigator screenOptions={screenOptions}>
-    <Tab.Screen name="RestaurantsList" component={RestaurantsNavigator} />
-    <Tab.Screen name="Map" component={MapScreen} />
-    <Tab.Screen name="Settings" component={Settings} />
-  </Tab.Navigator>
+  <FavouritesContextProvider>
+    <LocationContextProvider>
+      <RestaurantContextProvider>
+        <Tab.Navigator screenOptions={screenOptions}>
+          <Tab.Screen name="RestaurantsList" component={RestaurantsNavigator} />
+          <Tab.Screen name="Map" component={MapScreen} />
+          <Tab.Screen name="Settings" component={Settings} />
+        </Tab.Navigator>
+      </RestaurantContextProvider>
+    </LocationContextProvider>
+  </FavouritesContextProvider>
 );
