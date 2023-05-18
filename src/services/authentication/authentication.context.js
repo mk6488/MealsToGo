@@ -34,7 +34,7 @@ export const AuthenticationContextProvider = ({ children }) => {
       })
       .catch((e) => {
         setIsLoading(false);
-        setError(e.code.split("/")[1]);
+        setError(`Error: ${e.code.split("/")[1]}`);
       });
   };
 
@@ -51,7 +51,7 @@ export const AuthenticationContextProvider = ({ children }) => {
       })
       .catch((e) => {
         setIsLoading(false);
-        setError(e.toString());
+        setError(`Error: ${e.code.split("/")[1]}`);
       });
   };
 
