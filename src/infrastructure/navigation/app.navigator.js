@@ -10,23 +10,22 @@ import { RestaurantContextProvider } from "../../services/restaurants/restaurant
 import { LocationContextProvider } from "../../services/location/location.context";
 import { FavouritesContextProvider } from "../../services/favourites/favourites.context";
 
+import { colors } from "../../infrastructure/theme/colors";
+
 const Tab = createBottomTabNavigator();
 
 const TAB_ICON = {
-  RestaurantsList: "md-restaurant",
+  Restaurants: "md-restaurant",
   Map: "md-map",
   Settings: "md-settings",
 };
 
-const screenOptions = ({ route }) => {
+const createScreenOptions = ({ route }) => {
   const iconName = TAB_ICON[route.name];
   return {
     tabBarIcon: ({ size, color }) => (
       <Ionicons name={iconName} size={size} color={color} />
     ),
-    tabBarActiveTintColor: "tomato",
-    tabBarInactiveTintColor: "gray",
-    header: () => null,
   };
 };
 
@@ -34,10 +33,28 @@ export const AppNavigator = () => (
   <FavouritesContextProvider>
     <LocationContextProvider>
       <RestaurantContextProvider>
-        <Tab.Navigator screenOptions={screenOptions}>
-          <Tab.Screen name="RestaurantsList" component={RestaurantsNavigator} />
-          <Tab.Screen name="Map" component={MapScreen} />
-          <Tab.Screen name="Settings" component={SettingsNavigator} />
+        <Tab.Navigator
+          screenOptions={createScreenOptions}
+          tabBarOptions={{
+            activeTintColor: colors.brand.primary,
+            inactiveTintColor: colors.brand.muted,
+          }}
+        >
+          <Tab.Screen
+            name="Restaurants"
+            component={RestaurantsNavigator}
+            options={{ headerShown: false }}
+          />
+          <Tab.Screen
+            name="Map"
+            component={MapScreen}
+            options={{ headerShown: false }}
+          />
+          <Tab.Screen
+            name="Settings"
+            component={SettingsNavigator}
+            options={{ headerShown: false }}
+          />
         </Tab.Navigator>
       </RestaurantContextProvider>
     </LocationContextProvider>
