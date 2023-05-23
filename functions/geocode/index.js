@@ -1,5 +1,5 @@
 const { locations: locationsMock } = require("./geocode.mock");
-const url = require("node:url");
+const url = require("url");
 
 module.exports = function geocodeRequest(request, response) {
   const { city } = url.parse(request.url, true).query;

@@ -29,7 +29,7 @@ export const SettingsScreen = ({ navigation }) => {
 
   useFocusEffect(() => {
     getProfilePicture(user);
-  }, [user]);
+  });
 
   return (
     <SafeArea>
